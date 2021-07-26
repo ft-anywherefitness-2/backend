@@ -1,60 +1,72 @@
-# Build Week Scaffolding for Node and PostgreSQL
+# BW-Fitness-Tracker 
 
-## Video Tutorial
 
-The following tutorial explains how to set up this project using PostgreSQL and Heroku.
+## Endpoints
+| Request | URL | Description |
+| ------- | --- | ----------- |
+| POST | api/auth/register | Registers as a new user |
+| POST | api/auth/login | Logs in an existing user |
+| GET  | api/auth/logout | Logs out an existing user |
+| GET | api/users | For retrieving all users (for instructors only) |
+| GET | api/users/:id | For retrieving a user with specified id |
+| GET | api/users/:role_id | For retrieving all users with the specified role_id |
+| PUT  | api/users/:id | For updating a user with the specified id |
+| DELETE | api/users/:id | For deleting a user with the specified id |
+| GET | api/classes | For retrieving a list of all classes |
+| GET | api/classes/:id | For retrieving a class with the specified id |
+| POST | api/classes | For creating a new class (for instructors only) |
+| PUT  | api/classes/:id | For updating a class with the specified id (for instructors only) |
+| DELETE | api/classes/:id | For deleting a class with the specified id (for instructors only) |
 
-[![Setting up PostgreSQL for Build Week](https://img.youtube.com/vi/kTO_tf4L23I/maxresdefault.jpg)](https://www.youtube.com/watch?v=kTO_tf4L23I)
 
-## Requirements
+## Database Schema
 
-- [PostgreSQL, pgAdmin 4](https://www.postgresql.org/download/) and [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed in your local machine.
-- A Heroku app with the [Heroku PostgreSQL Addon](https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-heroku-postgres) added to it.
-- Development and testing databases created with [pgAdmin 4](https://www.pgadmin.org/docs/pgadmin4/4.29/database_dialog.html).
+### roles table
+| Name | Type | Required | Unique | Notes |
+| ---- | ---- | -------- | ------ | ----- |
+| id | integer | yes | yes | role id (incremented) |
+| role | text | yes | no | foreign key for users table (client or instructor) |
 
-## Starting a New Project
+### users table
+| Name | Type | Required | Unique | Notes |
+| ---- | ---- | -------- | ------ | ----- |
+| id | integer | yes | yes | user id (incremented) |
+| first_name | text | yes | no | user first name |
+| last_name | text | yes | no | user last name |
+| email | text | yes | yes | user email |
+| username | text | yes | yes | username of user |
+| password | text | yes | no | user password |
+| role_id | integer | yes | no | foreign key for user role |
 
-- Create a new repository using this template, and clone it to your local.
-- Create a `.env` file and follow the instructions inside `knexfile.js`.
-- Fix the scripts inside `package.json` to use your Heroku app.
+### types table
+| Name | Type | Required | Unique | Notes |
+| ---- | ---- | -------- | ------ | ----- |
+| id | integer | yes | yes | type id (incremented) |
+| type | text | yes | no | foreign key for classes table (class type) |
 
-## Scripts
+### classes table
+| Name | Type | Required | Unique | Notes |
+| ---- | ---- | -------- | ------ | ----- |
+| id | integer | yes | yes | class id (incremented) |
+| name | text | yes | yes | class name |
+| instructor_id | integer | yes | no | foreign key for instructor of class |
+| type_id | integer | yes | no | foreign key for type of class |
+| date | date | yes | no | date of class |
+| start_time | time | yes | no | start time of class |
+| duration | integer | yes | no | duration of class |
+| intensity | text | yes | no | intensity of class |
+| location | text | yes | no | location of class |
+| number_of_attendees | integer | yes | no | number of client in class |
+| max_class_size | integer | yes | no | max number of clients that be in class |
 
-- **start**: Runs the app in production.
-- **server**: Runs the app in development.
-- **migrate**: Migrates the local development database to the latest.
-- **rollback**: Rolls back migrations in the local development database.
-- **seed**: Truncates all tables in the local development database, feel free to add more seed files.
-- **test**: Runs tests.
-- **deploy**: Deploys the main branch to Heroku.
+### class_clients table
+| Name | Type | Required | Unique | Notes |
+| ---- | ---- | -------- | ------ | ----- |
+| id | integer | yes | yes | role id (incremented) |
+| class_id | integer | yes | no | foreign key from classes table |
+| client_id | integer | yes | no | foreign key from users table |
 
-**The following scripts NEED TO BE EDITED before using: replace `YOUR_HEROKU_APP_NAME`**
 
-- **migrateh**: Migrates the Heroku database to the latest.
-- **rollbackh**: Rolls back migrations in the Heroku database.
-- **databaseh**: Interact with the Heroku database from the command line using psql.
-- **seedh**: Runs all seeds in the Heroku database.
 
-## Hot Tips
 
-- Figure out the connection to the database and deployment before writing any code.
 
-- If you need to make changes to a migration file that has already been released to Heroku, follow this sequence:
-
-  1. Roll back migrations in the Heroku database
-  2. Deploy the latest code to Heroku
-  3. Migrate the Heroku database to the latest
-
-- If your frontend devs are clear on the shape of the data they need, you can quickly build provisional endpoints that return mock data. They shouldn't have to wait for you to build the entire backend.
-
-- Keep your endpoints super lean: the bulk of the code belongs inside models and other middlewares.
-
-- Validating and sanitizing client data using a library is much less work than doing it manually.
-
-- Revealing crash messages to clients is a security risk, but during development it's helpful if your frontend devs are able to tell you what crashed.
-
-- PostgreSQL comes with [fantastic built-in functions](https://hashrocket.com/blog/posts/faster-json-generation-with-postgresql) for hammering rows into whatever JSON shape.
-
-- If you want to edit a migration that has already been released but don't want to lose all the data, make a new migration instead. This is a more realistic flow for production apps: prod databases are never migrated down. We can migrate Heroku down freely only because there's no valuable data from customers in it. In this sense, Heroku is acting more like a staging environment than production.
-
-- If your fronted devs are interested in running the API locally, help them set up PostgreSQL & pgAdmin in their machines, and teach them how to run migrations in their local. This empowers them to (1) help you troubleshoot bugs, (2) obtain the latest code by simply doing `git pull` and (3) work with their own data, without it being wiped every time you roll back the Heroku db. Collaboration is more fun and direct, and you don't need to deploy as often.
