@@ -39,3 +39,8 @@ classes wherever they might be held.
 | get classes by duration GET   | /api/auth/users/classes/duration   | duration        | N/A             | Gets all the class of that duration. Has to be double.           |
 | get classes by type GET       | /api/auth/users/classes/type       | type            | N/A             | Gets all the class of that type.                                 |
 | get classes by instructor GET | /api/auth/users/classes/instructor | instructor_name | N/A             | Gets all the class by that instructor.                           |
+
+
+
+
+![](./notes/2021-07-26-16-16-11.png)
