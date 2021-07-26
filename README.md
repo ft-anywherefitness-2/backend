@@ -13,8 +13,6 @@ classes wherever they might be held.
 
 ## <a name="api-endpoints"></a>API endpoints
 
-
-
 ### **_Authentication (for login)_**
 
 | Method        | Endpoint           | Body (required)                       | Body (optional) | Notes                                             |
