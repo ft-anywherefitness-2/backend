@@ -1,5 +1,8 @@
 # Anywhere Fitness
 
+
+# Problem Statment: [link to mvp goals](https://github.com/ft-anywherefitness-2/backend/blob/bryan-guner/notes/assignment.md)
+
 ## Table of contents
 
 - **[Overview](#overview)**<br>
