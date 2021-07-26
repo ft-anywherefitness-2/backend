@@ -22,7 +22,6 @@ server.use(helmet());
 server.use(cookieParser());
 server.use(express.json());
 
-
 server.use("/api", welcomeRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/users", usersRouter);
