@@ -15,7 +15,6 @@ classes wherever they might be held.
 
 ### **_Authentication (for login)_**
 
-
 | Method        | Endpoint           | Body (required)                       | Body (optional) | Notes                                             |
 | ------------- | ------------------ | ------------------------------------- | --------------- | ------------------------------------------------- |
 | register POST | /api/auth/register | name, email, username, password, role | N/A             | Creates a new user object in the database.        |
