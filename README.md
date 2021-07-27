@@ -1,60 +1,155 @@
-# Build Week Scaffolding for Node and PostgreSQL
+# Anywhere Fitness
 
-## Video Tutorial
+# Problem Statment: [link to mvp goals](https://github.com/ft-anywherefitness-2/backend/blob/bryan-guner/notes/assignment.md)
 
-The following tutorial explains how to set up this project using PostgreSQL and Heroku.
+## Table of contents
 
-[![Setting up PostgreSQL for Build Week](https://img.youtube.com/vi/kTO_tf4L23I/maxresdefault.jpg)](https://www.youtube.com/watch?v=kTO_tf4L23I)
+- **[Overview](#overview)**<br>
+- **[API Endpoints](#api-endpoints)**<br>
 
-## Requirements
+## <a name="overview"></a>Overview
 
-- [PostgreSQL, pgAdmin 4](https://www.postgresql.org/download/) and [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed in your local machine.
-- A Heroku app with the [Heroku PostgreSQL Addon](https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-heroku-postgres) added to it.
-- Development and testing databases created with [pgAdmin 4](https://www.pgadmin.org/docs/pgadmin4/4.29/database_dialog.html).
+AnywhereFitness is the all-in-one solution to meet your “on-location” fitness class needs.
+AnywhereFitness makes it painless for Instructors and Clients alike to hold and attend Fitness
+classes wherever they might be held.
 
-## Starting a New Project
+## <a name="api-endpoints"></a>API endpoints
 
-- Create a new repository using this template, and clone it to your local.
-- Create a `.env` file and follow the instructions inside `knexfile.js`.
-- Fix the scripts inside `package.json` to use your Heroku app.
+### **_Authentication (for login)_**
 
-## Scripts
+| Method        | Endpoint           | Body (required)                       | Body (optional) | Notes                                             |
+| ------------- | ------------------ | ------------------------------------- | --------------- | ------------------------------------------------- |
+| register POST | /api/auth/register | name, email, username, password, role | N/A             | Creates a new user object in the database.        |
+| login POST    | /api/auth/login    | username, password                    | N/A             | Returns a welcome message and the JSON Web Token. |
 
-- **start**: Runs the app in production.
-- **server**: Runs the app in development.
-- **migrate**: Migrates the local development database to the latest.
-- **rollback**: Rolls back migrations in the local development database.
-- **seed**: Truncates all tables in the local development database, feel free to add more seed files.
-- **test**: Runs tests.
-- **deploy**: Deploys the main branch to Heroku.
+### **_Additional athunetication for Instructor_**
 
-**The following scripts NEED TO BE EDITED before using: replace `YOUR_HEROKU_APP_NAME`**
+| Method               | Endpoint                         | Body (required)                                                                     | Body (optional) | Notes                                                                                                                                                    |
+| -------------------- | -------------------------------- | ----------------------------------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Add class POST       | /api/auth/instructor/classes     | name, instructor_name, type, intensity,location, date, max_size, duration, signedUp | N/A             | Creates a new class object in the database. Date has to string in "04/19/2020" format. Duration is a float and signedUp is a boolean(false as a default) |
+| Update Class PUT     | /api/auth/instructor/classes/:id | any of the field                                                                    | N/A             | Updates the class with given Id                                                                                                                          |
+| Removes Class DELETE | /api/auth/instructor/classes/:id | any of the field                                                                    | N/A             | Deletes the class with given Id                                                                                                                          |
 
-- **migrateh**: Migrates the Heroku database to the latest.
-- **rollbackh**: Rolls back migrations in the Heroku database.
-- **databaseh**: Interact with the Heroku database from the command line using psql.
-- **seedh**: Runs all seeds in the Heroku database.
+### **_Endpoints for the Users_**
 
-## Hot Tips
+| Method                        | Endpoint                           | Body (required) | Body (optional) | Notes                                                            |
+| ----------------------------- | ---------------------------------- | --------------- | --------------- | ---------------------------------------------------------------- |
+| get classes GET               | /api/auth/users/classes            | N/A             | N/A             | Fetches all the classes from the database                        |
+| get classes by Id GET         | /api/auth/users/classes/:id        | id              | N/A             | Fetches the class with given Id.                                 |
+| get classes by Location GET   | /api/auth/users/classes/location   | location        | N/A             | Gets all the class in that location                              |
+| get classes by intensity GET  | /api/auth/users/classes/intensity  | intensity       | N/A             | Gets all the class in that intensity. "low", "medium", or "high" |
+| get classes by duration GET   | /api/auth/users/classes/duration   | duration        | N/A             | Gets all the class of that duration. Has to be double.           |
+| get classes by type GET       | /api/auth/users/classes/type       | type            | N/A             | Gets all the class of that type.                                 |
+| get classes by instructor GET | /api/auth/users/classes/instructor | instructor_name | N/A             | Gets all the class by that instructor.                           |
 
-- Figure out the connection to the database and deployment before writing any code.
+![](./notes/Capture03.PNG)
 
-- If you need to make changes to a migration file that has already been released to Heroku, follow this sequence:
+# Full Stack Build Week (Anywhere Fitness)
 
-  1. Roll back migrations in the Heroku database
-  2. Deploy the latest code to Heroku
-  3. Migrate the Heroku database to the latest
+# Links:
 
-- If your frontend devs are clear on the shape of the data they need, you can quickly build provisional endpoints that return mock data. They shouldn't have to wait for you to build the entire backend.
+[Task List](https://www.notion.so/b594fe1487234f96b5dcf19c4a258218)
 
-- Keep your endpoints super lean: the bulk of the code belongs inside models and other middlewares.
+[Copy of Product Vision Document](https://www.notion.so/Copy-of-Product-Vision-Document-69eb43351a72457e956caf79409d7d04)
 
-- Validating and sanitizing client data using a library is much less work than doing it manually.
+[Anywhere Fitness](https://www.notion.so/Anywhere-Fitness-ba5d9993f953483a860db08ba0e6ab78)
 
-- Revealing crash messages to clients is a security risk, but during development it's helpful if your frontend devs are able to tell you what crashed.
+[Build Week Student Guide (Full-time)](https://www.notion.so/Build-Week-Student-Guide-Full-time-5205d3157be141849bb5f99e3f93c6c6)
 
-- PostgreSQL comes with [fantastic built-in functions](https://hashrocket.com/blog/posts/faster-json-generation-with-postgresql) for hammering rows into whatever JSON shape.
+## ☝️ **Pitch**
 
-- If you want to edit a migration that has already been released but don't want to lose all the data, make a new migration instead. This is a more realistic flow for production apps: prod databases are never migrated down. We can migrate Heroku down freely only because there's no valuable data from customers in it. In this sense, Heroku is acting more like a staging environment than production.
+These days, fitness classes can be held anywhere- a park, an unfinished basement or a garage- not just at a traditional gym. Certified fitness instructors need an easy way to take the awkwardness out of attendance taking and client payment processing.
 
-- If your fronted devs are interested in running the API locally, help them set up PostgreSQL & pgAdmin in their machines, and teach them how to run migrations in their local. This empowers them to (1) help you troubleshoot bugs, (2) obtain the latest code by simply doing `git pull` and (3) work with their own data, without it being wiped every time you roll back the Heroku db. Collaboration is more fun and direct, and you don't need to deploy as often.
+While you could use several mobile apps to accomplish this, **Anywhere Fitness** is the all-in-one solution to meet your “on-location” fitness class needs. AnywhereFitness makes it painless for Instructors and Clients alike to hold and attend Fitness classes wherever they might be held.
+
+Instructors can take attendance, request and process payments, create virtual “punch passes” for each type of class offered, alert clients of cancellations or location changes and so much more. Clients can easily find out information on classes - location, class size, start time and duration, as well as reschedule or cancel an upcoming appointment or reservation right from the mobile app.
+
+## ✅ **MVP**
+
+1. User can create/register as a `client` and login with the registered credentials.
+
+2. User can create/register as an `instructor` by entering an additional Auth Code during signup, and can login with the registered credentials.
+
+3. `client` and `instructor` are both presented with the appropriate on-boarding walkthrough on first sign-in, with an option to skip it.
+
+4. Authenticated `Instructor` can create update and delete a `class`. At a minimum, each `class` must have the following properties:
+
+- `Name`
+- `Type`
+- `Start time`
+- `Duration`
+- `Intensity level`
+- `Location`
+- `Current number of registered attendees`
+- `Max class size`
+
+5. Authenticated `client` can search for available classes. At a minimum, they must be able to search by the following criteria:
+
+- `class time`
+- `class date`
+- `class duration`
+- `class type`
+- `intensity level`
+- `class location`
+
+6. Authenticated `instructor` can create virtual punch pass categories for each type of group fitness class they offer (yoga, insanity, RIPPED, pilates, etc.)
+
+7. Authenticated `user` can reserve a spot in a `class` with available seats open, and can reschedule or cancel their current `reservation` from the mobile app.
+
+## 🏃‍♀️**Stretch**
+
+1. Implement payments using PayPal, Stripe or another 3rd party API.
+
+### The Essentials
+
+---
+
+[Copy of Full Time Schedule and Milestones](https://www.notion.so/b19cfdc059ac4f3db92624c589944fbd)
+
+[Copy of Build Week Rubrics & Role Descriptions ](https://www.notion.so/Copy-of-Build-Week-Rubrics-Role-Descriptions-0ea359b931474d01ae69bd477668acd2)
+
+[Copy of Git for Build Sprint](https://www.notion.so/Copy-of-Git-for-Build-Sprint-ceaeebd0c4fd434fb27bf47368faa23c)
+
+### Getting Set Up
+
+---
+
+[Copy of How to set up Trello board for Build Weeks](https://www.notion.so/Copy-of-How-to-set-up-Trello-board-for-Build-Weeks-ea3e636949cb46fb91561e2a198967b6)
+
+- If you're new to Trello, [here's a basic guide to using it.](https://trello.com/en-US/guide/trello-101)
+
+[Copy of How to setup Github Organization for Build Weeks](https://www.notion.so/Copy-of-How-to-setup-Github-Organization-for-Build-Weeks-98efa51cf77e4015a262291d1ce5e815)
+
+[Copy of Web & DS Scaffolding](https://www.notion.so/Copy-of-Web-DS-Scaffolding-22dcb958d84248f6a61756e8680d08fa)
+
+### Planning Your Project as a Team
+
+---
+
+[Copy of Product Vision Document](https://www.notion.so/Copy-of-Product-Vision-Document-9ef09b53d05d4507b5e8674a856dd84b)
+
+[Copy of Product Vision Document (example)](https://www.notion.so/Copy-of-Product-Vision-Document-example-e8df1dd8d83443df9bafdfd25150e6df)
+
+### What's New in Build Week Since You Were Here Last
+
+---
+
+[Copy of FT Build Week Change Log](https://www.notion.so/9bb0cce0c1114b88bc7c18d6607c4b96)
+
+### Peer Reviews
+
+---
+
+### Product Information
+
+---
+
+[Copy of FT Build Week Product Catalog](https://www.notion.so/Copy-of-FT-Build-Week-Product-Catalog-8ee84c0b3901440babe8f22b2565f0a8)
+
+### Front End Marketing Pages
+
+---
+
+Find your product here: [https://github.com/LambdaSchoolBuildWeeks/Unit1Marketing](https://github.com/LambdaSchoolBuildWeeks/Unit1Marketing)
+
+[Copy of Product Vision Document](https://www.notion.so/Copy-of-Product-Vision-Document-ccd5078a397e4e2cba6a2b1f794c08c0)
