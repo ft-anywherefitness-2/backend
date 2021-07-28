@@ -18,7 +18,7 @@ exports.seed = function(knex) {
       max_class_size: 20
     },
     { 
-      class_name: 'Fit Weights',
+      class_name: 'Fit Lifts',
       class_type: 'Weight lifting',
       start_time: '3pm',
       duration: '30 Min',
