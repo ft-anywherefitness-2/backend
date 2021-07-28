@@ -3,7 +3,7 @@ exports.up = async function(knex) {
         table.increments('class_id')
         table.string('class_name', 200).notNullable()
         table.string('class_type', 200)
-        table.time('start_time').notNullable()
+        table.string('start_time', 150).notNullable()
         table.string('duration', 150)
         table.string('intensity_level', 125).notNullable()
         table.string('class_location', 200).notNullable()
