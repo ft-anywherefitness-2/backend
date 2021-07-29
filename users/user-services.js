@@ -1,5 +1,5 @@
 module.exports = {
-  isValid
+  isValid,
 };
 
 function isValid(user) {

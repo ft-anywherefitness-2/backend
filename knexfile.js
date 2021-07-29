@@ -1,47 +1,48 @@
-const pgConnection = process.env.DATABASE_URL || 'postgresql://postgres@localhost/auth';
+const pgConnection =
+  process.env.DATABASE_URL || "postgresql://postgres@localhost/auth";
 
 module.exports = {
   development: {
-    client: 'sqlite3',
+    client: "sqlite3",
     connection: {
-      filename: './data/auth.db3'
+      filename: "./data/auth.db3",
     },
     migrations: {
-      directory: './data/migrations'
+      directory: "./data/migrations",
     },
     useNullAsDefault: true,
     seeds: {
-      directory: './data/seeds'
+      directory: "./data/seeds",
     },
     pool: {
       afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
-      }
-    }
+        conn.run("PRAGMA foreign_keys = ON", done);
+      },
+    },
   },
 
   testing: {
-    client: 'sqlite3',
+    client: "sqlite3",
     connection: {
-      filename: ':memory'
+      filename: ":memory",
     },
     useNullAsDefault: true,
     migrations: {
-      directory: './data/migrations'
+      directory: "./data/migrations",
     },
     seeds: {
-      directory: './data/seeds'
-    }
+      directory: "./data/seeds",
+    },
   },
 
   production: {
-    client: 'pg',
+    client: "pg",
     connection: pgConnection,
     migrations: {
-      directory: './data/migrations'
+      directory: "./data/migrations",
     },
     seeds: {
-      directory: './data/seeds'
-    }
-  }
+      directory: "./data/seeds",
+    },
+  },
 };

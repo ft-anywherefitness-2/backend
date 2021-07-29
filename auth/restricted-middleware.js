@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const jwtSecret = require('../utils/vars');
+const jwt = require("jsonwebtoken");
+const jwtSecret = require("../utils/vars");
 
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
     jwt.verify(token, secret, (error, decodedToken) => {
       if (error) {
         // the token is invalid
-        res.status(401).json({message: 'you cannot pass!'});
+        res.status(401).json({ message: "you cannot pass!" });
       } else {
         // the token is good
         req.jwt = decodedToken;
@@ -19,6 +19,8 @@ module.exports = (req, res, next) => {
       }
     });
   } else {
-    res.status(400).json({message: 'Please provide the authentication information'});
+    res
+      .status(400)
+      .json({ message: "Please provide the authentication information" });
   }
 };
