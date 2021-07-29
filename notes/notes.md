@@ -1,7 +1,5 @@
 Enrollments marries a user to a class.
 
-
-
 ```sh
 git init
 git add .

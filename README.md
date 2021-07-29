@@ -2,18 +2,9 @@
 
 # Problem Statment: [link to mvp goals](https://github.com/ft-anywherefitness-2/backend/blob/bryan-guner/notes/assignment.md)
 
-## Table of contents
+## Base URL for API
 
-- **[Overview](#overview)**<br>
-- **[API Endpoints](#api-endpoints)**<br>
-
-## <a name="overview"></a>Overview
-
-AnywhereFitness is the all-in-one solution to meet your “on-location” fitness class needs.
-AnywhereFitness makes it painless for Instructors and Clients alike to hold and attend Fitness
-classes wherever they might be held.
-
-## <a name="api-endpoints"></a>API endpoints
+https://anywhere-fitness-3b.herokuapp.com/
 
 ## Endpoints
 
@@ -85,6 +76,8 @@ classes wherever they might be held.
 | class_id  | integer | yes      | no     | foreign key from classes table |
 | client_id | integer | yes      | no     | foreign key from users table   |
 
+# the figure below is no longer accurate to the schema described above... an updated diagram is soon to follow!
+
 ![](./notes/Capture03.PNG)
 
 # Full Stack Build Week (Anywhere Fitness)
@@ -101,7 +94,7 @@ classes wherever they might be held.
 
 ## ☝️ **Pitch**
 
-These days, fitness classes can be held anywhere- a park, an unfinished basement or a garage- not just at a traditional gym. Certified fitness instructors need an easy way to take the awkwardness out of attendance taking and client payment processing.
+### These days, fitness classes can be held anywhere- a park, an unfinished basement or a garage- not just at a traditional gym. Certified fitness instructors need an easy way to take the awkwardness out of attendance taking and client payment processing.
 
 While you could use several mobile apps to accomplish this, **Anywhere Fitness** is the all-in-one solution to meet your “on-location” fitness class needs. AnywhereFitness makes it painless for Instructors and Clients alike to hold and attend Fitness classes wherever they might be held.
 
