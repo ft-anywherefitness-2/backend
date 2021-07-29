@@ -1,24 +1,22 @@
-const express = require("express");
-const helmet = require("helmet");
-const cors = require("cors");
-const authenticate = require("../auth/authenticate-middleware");
-
-const authRouter = require("../auth/auth-router");
-const usersRouter = require("../users/users-router");
-const classesRouter = require("../classes/classes-router");
+const express = require('express');
+const authRouter = require('../auth/router');
+const userRouter = require('../users/router');
+const instructorRouter = require('../instructor/router');
+const cors = require('cors');
+const helmet = require('helmet');
 
 const server = express();
 
 server.use(helmet());
-server.use(express.json());
 server.use(cors());
+server.use(express.json());
 
-server.use("/api/auth", authRouter);
-server.use("/api/users", authenticate, usersRouter);
-server.use("/api/classes", classesRouter);
-
-server.get("/", (req, res) => {
-  res.status(200).json({ message: "Welcome to the Anywhere Fitness API 💪" });
+server.get('/', (req, res) => {
+  res.send({server: 'up'});
 });
+
+server.use('/api/auth', authRouter);
+server.use('/api/auth/users/classes', userRouter);
+server.use('/api/auth/instructor/classes', instructorRouter);
 
 module.exports = server;
