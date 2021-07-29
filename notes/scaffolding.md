@@ -28,7 +28,7 @@ The following tutorial explains how to set up this project using PostgreSQL and 
 - **test**: Runs tests.
 - **deploy**: Deploys the main branch to Heroku.
 
-**The following scripts NEED TO BE EDITED before using: replace `anywherefitnessbe43`**
+**The following scripts NEED TO BE EDITED before using: replace `https://secret-peak-42801.herokuapp.com/`**
 
 - **migrateh**: Migrates the Heroku database to the latest.
 - **rollbackh**: Rolls back migrations in the Heroku database.
