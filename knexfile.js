@@ -1,48 +1,45 @@
-const pgConnection =
-  process.env.DATABASE_URL || "postgresql://postgres@localhost/auth";
-
 module.exports = {
   development: {
-    client: "sqlite3",
+    client: 'sqlite3',
     connection: {
-      filename: "./data/auth.db3",
-    },
-    migrations: {
-      directory: "./data/migrations",
+      filename: './database/anywhere-fitness.db3',
     },
     useNullAsDefault: true,
-    seeds: {
-      directory: "./data/seeds",
+    migrations: {
+      directory: './database/migrations',
     },
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run("PRAGMA foreign_keys = ON", done);
-      },
+    seeds: {
+      directory: './database/seeds',
     },
   },
-
+  // needed when using foreign keys
+  pool: {
+    afterCreate: (conn, done) => {
+      // runs after a connection is made to the sqlite engine
+      conn.run('PRAGMA foreign_keys = ON', done); // turn on foreign key enforcement
+    },
+  },
   testing: {
-    client: "sqlite3",
+    client: 'sqlite3',
     connection: {
-      filename: ":memory",
+      filename: './database/test.db3',
     },
     useNullAsDefault: true,
     migrations: {
-      directory: "./data/migrations",
+      directory: './database/migrations',
     },
     seeds: {
-      directory: "./data/seeds",
+      directory: './database/seeds',
     },
   },
-
   production: {
-    client: "pg",
-    connection: pgConnection,
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
     migrations: {
-      directory: "./data/migrations",
+      directory: './database/migrations',
     },
     seeds: {
-      directory: "./data/seeds",
+      directory: './database/seeds',
     },
-  },
-};
+  }
+}
