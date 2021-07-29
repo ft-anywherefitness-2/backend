@@ -10,4 +10,12 @@ router.get('/', (req, res, next) => {
         .catch(next)
 });
 
+router.get('/:id', (req, res, next) => {
+    Classes.getById(req.params.id)
+        .then(item => {
+            res.status(200).json(item)
+        })
+        .catch(next)
+});
+
 module.exports = router;
