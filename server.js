@@ -12,7 +12,9 @@ const usersRouter = require('./api/users/users-router.js');
 const classesRouter = require('./api/classes/classes-router.js');
 
 const origin =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://frontend-36d746b4y-anywherefitness.vercel.app/';
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://frontend-iota.vercel.app/";
 
 server.use(cors({ credentials: true, origin }));
 
@@ -33,7 +35,7 @@ server.use('/api/classes', classesRouter);
 
 server.get('/', (req, res) => {
 	res.status(200).json({
-		message: 'The API is running!'
+		message: 'Its alive!'
 	});
 });
 

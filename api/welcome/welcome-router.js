@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
 	try {
-		res.json({ message: 'Welcome to the Anywhere Fitness API!' });
+		res.json({ message: 'Hi you have reached the Anywhere Fitness API!' });
 	} catch (err) {
 		next(err);
 	}
