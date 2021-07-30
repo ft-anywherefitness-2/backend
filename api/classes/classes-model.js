@@ -13,13 +13,19 @@ async function addClass(newClass) {
     return getById(class_id)
 }
 
-function update(id) {
+function update(class_id, changes) {
     return db('classes')
+    .update(changes)
+    .where({ class_id })
 }
 
-function remove(id) {
-
+function remove(class_id) {
+    return db('classes')
+    .where({ class_id })
+    .del()
 }
+
+
 
 module.exports = {
     getClasses,
